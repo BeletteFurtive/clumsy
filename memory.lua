@@ -12,8 +12,9 @@ memory:set_align("right")
 memory.config = {
    textbegin = " Ram: ",
    textend = "%",
-   textperso,
-   icon = awful.util.getdir("config") .. "/images/battery.png"
+   color1 = "#CCCCCC",
+   color2 = "#CCCCCC",
+   --icon = awful.util.getdir("config") .. "/images/battery.png"
 }
 
 
@@ -55,11 +56,7 @@ function memory.update(widget)
    memory.info.inuse = memory.info.total - memory.info.free
    memory.info.inusepercentage = math.floor(memory.info.inuse / memory.info.total * 100)
 
-   if widget.config.textperso == nil then
-	  widget:set_markup(memory.config.textbegin .. memory.info.inusepercentage .. memory.config.textend)
-   else
-	  widget:set_markup(widget.config.textperso)	  
-   end
+   widget:set_markup('<span color="'.. widget.config.color1 .. '">' .. widget.config.textbegin .. '</span> <span color="' .. widget.config.color2 .. '">' .. widget.info.inusepercentage .. widget.config.textend .. '</span>')
 end
 
 return memory

@@ -10,8 +10,10 @@ brightness:set_align("right")
 brightness.config = {
    textbegin = " Bri: ",
    textend = "%",
-   textperso,
-   icon = awful.util.getdir("config") .. "/images/brightness.png"
+   color1 = "#CCCCCC",
+   color2 = "#CCCCCC",
+   colortmp = "#CCCCCC"
+   --icon = awful.util.getdir("config") .. "/images/brightness.png"
 }
 
 brightness.info = {
@@ -28,12 +30,8 @@ function brightness.update(widget)
    local statustmp = string.match(brightness.info.raw, "%d?%d?%d")
    brightness.info.status = string.format("% 3d", statustmp)
 
-   if widget.config.textperso == nil then
-	  widget:set_markup(brightness.config.textbegin .. brightness.info.status .. brightness.config.textend)
-   else
-	  widget:set_markup(widget.config.textperso)	  
-   end
-
+   widget:set_markup('<span color="'.. widget.config.color1 .. '">' .. widget.config.textbegin ..'</span> <span color="' .. widget.config.color2 .. '">'..  widget.info.status .. brightness.config.textend .. '</span>')
+   
 end
 
 return brightness

@@ -5,7 +5,7 @@ volume = require("clumsy.volume")
 brightness = require("clumsy.brightness")
 memory = require("clumsy.memory")
 
-function clumsy.widget(wi, timing, format)
+function clumsy.widget(wi, timing, color1, color2)
    local widget
    
    if wi == "battery" then widget = battery
@@ -14,16 +14,19 @@ function clumsy.widget(wi, timing, format)
    elseif wi == "memory"  then widget = memory
    end
 
-   if format == nil then
-	  widget.config.textperso = nil
-   else
-	  widget.config.textperso = format
-   end
-
    if timing == nil then
 	  timing = 5
    end
-	  
+
+   if color1 then
+	  widget.config.color1 = color1
+   end
+
+   if color2 then
+	  widget.config.color2 = color2
+	  widget.config.colortmp = color2
+   end
+   
    clumsy.update(widget, timing)
    return widget
 end

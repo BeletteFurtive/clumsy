@@ -12,8 +12,10 @@ battery:set_align("right")
 battery.config = {
    textbegin = " Bat: ",
    textend = "%",
-   textperso,
-   icon = awful.util.getdir("config") .. "/images/battery.png"
+   color1 = "#CCCCCC",
+   color2 = "#CCCCCC",
+   colortmp = "#CCCCCC"
+   --icon = awful.util.getdir("config") .. "/images/battery.png"
 }
 
 
@@ -36,21 +38,25 @@ function battery.update(widget)
    local capacitynumber = tonumber(battery.info.capacity)
 
    if battery.info.status:match("Discharging") then
+	  widget.config.textend = "%↓" 
+	  widget.config.color2 = "#D61326"
 
 	  if capacitynumber < 20 then
 		 
 		 naughty.notify({ title = "Low battery ! ",
 						  text = "Plug your cable to the sector",
 						  icon=battery.config.icon })
-
+		 widget.config.color2 = "#FF0000"
+		 
 	  end
+
+   else
+	  widget.config.textend = "%↑" 
+	  widget.config.color2 = widget.config.colortmp
+	  
    end
    
-   if widget.config.textperso == nil then
-	  widget:set_markup(battery.config.textbegin .. battery.info.capacity .. battery.config.textend)
-   else
-	  widget:set_markup(widget.config.textperso)	  
-   end
+   widget:set_markup('<span color="'.. widget.config.color1 .. '">' .. widget.config.textbegin .. '</span> <span color="' .. widget.config.color2 .. '">' .. widget.info.capacity .. widget.config.textend .. '</span>')
 
 end
 
