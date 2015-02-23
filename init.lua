@@ -4,6 +4,7 @@ battery = require("clumsy.battery")
 volume = require("clumsy.volume")
 brightness = require("clumsy.brightness")
 memory = require("clumsy.memory")
+bumblebee = require("clumsy.bumblebee")
 
 function clumsy.widget(wi, timing, color1, color2)
    local widget
@@ -12,6 +13,7 @@ function clumsy.widget(wi, timing, color1, color2)
    elseif wi == "volume" then widget = volume
    elseif wi == "brightness" then widget = brightness
    elseif wi == "memory"  then widget = memory
+   elseif wi == "bumblebee"  then widget = bumblebee
    end
 
    if timing == nil then

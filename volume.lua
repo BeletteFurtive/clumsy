@@ -32,7 +32,7 @@ function volume.update(widget)
 
    widget.info.status = string.match(volume.info.raw, "%[(o[^%]]*)%]")
    statusio:close()
-
+   
 
    if widget.info.status == "off" then
 	  widget.config.textend = "M" 

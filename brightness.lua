@@ -23,7 +23,7 @@ brightness.info = {
 
 function brightness.update(widget)
    local statusio = io.popen("xbacklight")
-   brightness.info.raw = statusio:read("*all")
+   widget.info.raw = statusio:read("*all")
 
    statusio:close()
 
