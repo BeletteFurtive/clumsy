@@ -6,6 +6,10 @@ brightness = require("clumsy.brightness")
 memory = require("clumsy.memory")
 bumblebee = require("clumsy.bumblebee")
 
+
+local compteur = 1
+local widgettable = {}
+
 function clumsy.widget(wi, timing, color1, color2)
    local widget
    
@@ -28,20 +32,23 @@ function clumsy.widget(wi, timing, color1, color2)
 	  widget.config.color2 = color2
 	  widget.config.colortmp = color2
    end
-   
-   clumsy.update(widget, timing)
+   widgettable[compteur] = widget
+   compteur=compteur+1
    return widget
 end
 
 
-function clumsy.update(widget, timing)
-
-   widget.update(widget)
-
+function clumsy.update(widget)
+   timing = 5
    mytimer = timer({timeout = timing})
-   mytimer:connect_signal("timeout", function()widget.update(widget) end)
-   mytimer:start()
-
+   
+   for count = 1, #widgettable do
+	  
+	  widgettable[count].update(widgettable[count])
+	  
+	  mytimer:connect_signal("timeout", function() widgettable[count].update(widgettable[count]) end)
+	  mytimer:start()
+   end
    
 end
 
